@@ -5,13 +5,12 @@
 
 template <typename K, typename V, int N>
 class KVList {
-  int _maxSize = N;
+  static const int _maxSize = N;
   std::vector<K> _keys;
   std::vector<V> _values;
 public:
   // default constructor - adopts a safe empty state
   KVList() {
-    _maxSize = 0;
     _keys.clear();
     _values.clear();
   }
