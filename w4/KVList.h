@@ -11,6 +11,7 @@ class KVList {
 public:
   // default constructor - adopts a safe empty state
   KVList() {
+    _maxSize = 0;
     _keys.clear();
     _values.clear();
   }
