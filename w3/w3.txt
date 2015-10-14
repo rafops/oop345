@@ -1,0 +1,139 @@
+Script started on Tue 06 Oct 2015 11:37:08 PM EDT
+rlemedemoraes@matrix:~/OOP345/w3> whoami
+rlemedemoraes
+rlemedemoraes@matrix:~/OOP345/w3> cat w3.cpp Text.h Text.cpp
+// Workshop 3 - Copy and Move Semantics
+// w3.cpp
+
+#include <iostream>
+#include <iomanip>
+#include <utility>
+#include <ctime>
+#include "Text.h"
+#define TIME(start, end) double((end) - (start)) / CLOCKS_PER_SEC
+
+int main (int argc, char* argv[]) {
+    if (argc == 1) {
+        std::cerr << argv[0] << ": missing file operand\n";
+        return 1;
+    }
+    else if (argc != 2) {
+        std::cerr << argv[0] << ": too many arguments\n";
+        return 2;
+    }
+    std::clock_t cs, ce;
+    {
+        std::cout << std::fixed << std::setprecision(3);
+        cs = std::clock();
+        w3::Text a;
+        ce = std::clock();
+        std::cout << "Constructor      " << TIME(cs, ce) << " seconds"; 
+        std::cout << " - a.size = " << a.size() << std::endl;
+
+        cs = std::clock();
+        w3::Text b(argv[1]);
+        ce = std::clock();
+        std::cout << "Constructor      " << TIME(cs, ce) << " seconds";
+        std::cout << " - b.size = " << b.size() << std::endl;
+
+        cs = std::clock();
+        a = b;
+        ce = std::clock();
+        std::cout << "Copy Assignment  " << TIME(cs, ce) << " seconds";
+        std::cout << " - a.size = " << a.size() << std::endl;
+
+        cs = std::clock();
+        a = std::move(b);
+        ce = std::clock();
+        std::cout << "Move Assignment  " << TIME(cs, ce) << " seconds";
+        std::cout << " - a.size = " << a.size() << std::endl;
+
+        cs = std::clock();
+        w3::Text c = a;
+        ce = std::clock();
+        std::cout << "Copy Constructor " << TIME(cs, ce) << " seconds";
+        std::cout << " - c.size = " << c.size() << std::endl;
+
+        cs = std::clock();
+        w3::Text d = std::move(a);
+        ce = std::clock();
+        std::cout << "Move Constructor " << TIME(cs, ce) << " seconds";
+        std::cout << " - d.size = " << d.size() << std::endl;
+
+        cs = std::clock();
+    }
+    ce = std::clock();
+    std::cout << "Destructor       " << TIME(cs, ce) << " seconds\n";
+}#ifndef OOP344_W3_TEXT
+#define OOP344_W3_TEXT
+
+#include <vector>
+
+namespace w3 {
+  class Text {
+  private:
+    std::vector<std::string> _data;
+    size_t _lineCount;
+  public:
+    Text();
+    Text(const std::string fileName);
+    Text(const Text& text);
+    Text(const Text&& text);
+    Text& operator=(const Text& text);
+    Text&& operator=(Text&& text);
+    size_t size() const;
+  };
+}
+
+#endif#include <iostream>
+#include <fstream>
+#include <vector>
+#include "Text.h"
+
+w3::Text::Text() {
+  _data.clear();
+}
+
+w3::Text::Text(const std::string fileName) {
+  std::fstream fs(fileName);
+  if(fs.fail()) return;
+  std::string line;
+  while(getline(fs, line)) {
+    _data.push_back(line);
+  }
+  fs.close();
+}
+
+w3::Text::Text(const w3::Text& text) {
+  *this = text;
+}
+
+w3::Text::Text(const w3::Text&& text) {
+  *this = text;
+}
+
+w3::Text& w3::Text::operator=(const w3::Text& text) {
+  if(this != &text) _data = text._data;
+	return *this;
+}
+
+w3::Text&& w3::Text::operator=(w3::Text&& text) {
+  if(this != &text) _data = text._data;
+  return std::move(*this);
+}
+
+size_t w3::Text::size() const {
+  return _data.size();
+}rlemedemoraes@matrix:~/OOP345/w3> g++ -o w3 -std=c++0x w3.cpp Text.cpp
+rlemedemoraes@matrix:~/OOP345/w3> w3 gutenberg_shakespeare
+Constructor      0.000 seconds - a.size = 0
+Constructor      0.110 seconds - b.size = 124456
+Copy Assignment  0.010 seconds - a.size = 124456
+Move Assignment  0.000 seconds - a.size = 124456
+Copy Constructor 0.010 seconds - c.size = 124456
+Move Constructor 0.010 seconds - d.size = 124456
+Destructor       0.040 seconds
+rlemedemoraes@matrix:~/OOP345/w3> exit
+exit
+
+Script done on Tue 06 Oct 2015 11:37:34 PM EDT
