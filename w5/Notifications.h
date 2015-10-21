@@ -4,6 +4,8 @@
 
 namespace w5 {
   class Notifications {
+    Message** messages;
+    int count;
   public:
     Notifications();
     Notifications(const Notifications&);
