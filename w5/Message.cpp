@@ -7,16 +7,19 @@ w5::Message::Message(std::ifstream& in, char c) {
   
   if(user.empty()) {
     is >> user;
+    if((int) user.find('@') > 0) {
+      user.clear();
+    }
   }
   if(reply.empty()) {
     is >> reply;
-    if(reply.find('@')==std::string::npos || reply.find('@') != 0) {
+    if((int) reply.find('@') < 0) {
       tweet = reply;
       reply.clear();
     }
   }
   if(tweet.empty()) {
-    is >> tweet;
+    getline(is, tweet);
   }
   is.clear();  
 }  
@@ -32,4 +35,5 @@ void w5::Message::display(std::ostream& os) const {
     os << " Reply : " << reply << std::endl;    
   }
   os << " Tweet : " << tweet << std::endl;
+  os << std::endl;
 }
