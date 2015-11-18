@@ -10,16 +10,23 @@ const int FWC =  5;
 const int FWD = 12;
 const int FWP =  8;
 
-w9::List<w9::Product> merge(const w9::List<w9::Description>& desc, 
- const w9::List<w9::Price>& price) {
+w9::List<w9::Product> merge(
+  const w9::List<w9::Description>& desc, 
+  const w9::List<w9::Price>& price) {
+
   w9::List<w9::Product> priceList;
 
-
-
-  // complete this part
-
-
-
+  for(int d=0; d<desc.size(); d++) {
+    for(int p=0; p<price.size(); p++) {
+      if(desc[d].code==price[p].code) {
+        w9::Product *product = new w9::Product(
+          desc[d].desc, price[p].price
+        );
+        priceList += product;
+        delete product;
+      }
+    }
+  }
 
   return priceList;
 }
