@@ -47,5 +47,10 @@ namespace w9 {
       os << std::setw(FWD) << desc << std::setw(FWP)
          << price << std::endl;
     }
+    void validate() {
+      if(price < 0) {
+        throw std::string("*** Negative prices are invalid ***");
+      }
+    }
   };
 }

@@ -19,11 +19,11 @@ w9::List<w9::Product> merge(
   for(int d=0; d<desc.size(); d++) {
     for(int p=0; p<price.size(); p++) {
       if(desc[d].code==price[p].code) {
-        w9::Product *product = new w9::Product(
+        std::unique_ptr<w9::Product> product(new w9::Product(
           desc[d].desc, price[p].price
-        );
-        priceList += product;
-        delete product;
+        ));
+        product->validate();
+        priceList += std::move(product);
       }
     }
   }
