@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <thread>
+#include <functional>
 #include "SecureData.h"
 
 namespace w10 {
@@ -60,7 +62,22 @@ namespace w10 {
   }
 
   void SecureData::code(char key) {
-    converter(text, key, nbytes, Cryptor());
+    const int numOfThreads = 4;
+    const int chunkSize = nbytes / numOfThreads;
+    std::thread threads[numOfThreads];
+    Cryptor cryptors[numOfThreads];
+
+    for(int j=0; j<numOfThreads; ++j) {
+      threads[j] = std::thread(std::bind(
+        converter,
+        text + j * chunkSize,
+        key,
+        j+1 < numOfThreads ? chunkSize : (nbytes - j*chunkSize),
+        cryptors[j]
+      ));
+    }
+    
+    for(int j=0; j<numOfThreads; ++j) threads[j].join();
     encoded = !encoded;
   }
 
