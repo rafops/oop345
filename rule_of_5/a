@@ -1,0 +1,25 @@
+default constructor
+print size=0
+overloaded constructor size=10000
+print size=10000
+default constructor
+copy constructor size=0
+print size=0
+print size=0
+copy assignment operator size=0
+print size=0
+print size=0
+copy assignment operator size=10000
+print size=10000
+print size=10000
+default constructor
+move construtor size=10000
+print size=10000
+print size=0
+move assignment operator size=10000
+print size=10000
+print size=0
+destructor size=0
+destructor size=0
+destructor size=10000
+destructor size=10000

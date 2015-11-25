@@ -1,0 +1,200 @@
+Script started on Wed 21 Oct 2015 01:27:20 AM EDT
+rlemedemoraes@matrix:~/OOP345/w5> whoami
+rlemedemoraes
+rlemedemoraes@matrix:~/OOP345/w5> cat w5.cpp Notifications.* Message.*
+// Workshop 5 - Containers
+// w5.cpp
+
+#include <iostream>
+#include <fstream>
+#include "Message.h"
+#include "Notifications.h"
+
+const char REC_DELIMITER = '\n';
+
+w5::Notifications collect(std::ifstream& in, char recDelim) {
+    w5::Notifications notifications;
+
+    do {
+        w5::Message message(in, recDelim);
+        if (!message.empty())
+            notifications += std::move(message);
+    } while(in);
+
+    return notifications;
+}
+
+int main(int argc, char* argv[]) {
+    if (argc == 1) {
+        std::cerr << argv[0] << ": missing file operand\n";
+        return 1;
+    }
+    else if (argc != 2) {
+        std::cerr << argv[0] << ": too many arguments\n";
+        return 2;
+    }
+    std::ifstream file(argv[1]);
+    if (!file) {
+        std::cerr << argv[0] << "\n: Failed to open " << argv[1] << "\n"; 
+        return 3;
+    }
+
+    std::cout << "\nNotifications\n=============\n\n";
+    w5::Notifications notifications = collect(file, REC_DELIMITER);
+
+    notifications.display(std::cout);
+
+    std::cout << "Press any key to continue ... ";
+    std::cin.get();
+}
+#include "Notifications.h"
+
+w5::Notifications::Notifications() {
+  messages.clear();
+}
+
+w5::Notifications::Notifications(const w5::Notifications& notifications) {  
+  messages = notifications.messages;
+}
+
+w5::Notifications& w5::Notifications::operator=(const w5::Notifications& notifications) {
+  if(this != &notifications) {
+    messages = notifications.messages;
+  }
+  return *this;
+}
+
+w5::Notifications::Notifications(w5::Notifications&& notifications) {
+  messages = notifications.messages;
+  notifications.messages.clear();
+}
+
+w5::Notifications&& w5::Notifications::operator=(w5::Notifications&& notifications) {
+  if(this != &notifications) {
+    messages = std::move(notifications.messages);
+  }
+  return std::move(*this);
+}
+
+w5::Notifications::~Notifications() {
+  messages.clear();
+}
+
+void w5::Notifications::operator+=(const w5::Message& message) {
+  messages.push_back(message);
+}
+
+void w5::Notifications::display(std::ostream& os) const {
+  for(auto message = messages.begin(); message != messages.end(); ++message) {
+    message->display(os);
+  }
+}
+#ifndef W5_NOTIFICATIONS_H
+#define W5_NOTIFICATIONS_H
+#include "Message.h"
+
+namespace w5 {
+  class Notifications {
+    std::vector<Message> messages;
+  public:
+    Notifications();
+    Notifications(const Notifications&);
+    Notifications& operator=(const Notifications&);
+    Notifications(Notifications&&);
+    Notifications&& operator=(Notifications&&);
+    ~Notifications();
+    void operator+=(const Message& msg);
+    void display(std::ostream& os) const;
+  };
+}
+
+#endif
+#include "Message.h"
+
+w5::Message::Message(std::ifstream& in, char c) {
+  std::string line;
+  getline(in, line, c);
+  std::istringstream is(line);
+  
+  if(user.empty()) {
+    is >> user;
+    if((int) user.find('@') > 0) {
+      user.clear();
+    }
+  }
+  if(reply.empty()) {
+    is >> reply;
+    if((int) reply.find('@') < 0) {
+      tweet = reply;
+      reply.clear();
+    }
+  }
+  if(tweet.empty()) {
+    getline(is, tweet);
+  }
+  is.clear();  
+}  
+
+bool w5::Message::empty() const {
+  return user.empty() || tweet.empty();
+}
+
+void w5::Message::display(std::ostream& os) const {
+  os << "Message" << std::endl;
+  os << " User  : " << user << std::endl;
+  if(!reply.empty()) {
+    os << " Reply : " << reply << std::endl;    
+  }
+  os << " Tweet : " << tweet << std::endl;
+  os << std::endl;
+}#ifndef W5_MESSAGE_H
+#define W5_MESSAGE_H
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include "Message.h"
+
+namespace w5 {
+  class Message {
+    std::string user;
+    std::string reply;
+    std::string tweet;
+  public:
+    Message(std::ifstream& in, char c);
+    bool empty() const;
+    void display(std::ostream&) const;
+  };
+}
+
+#endif
+rlemedemoraes@matrix:~/OOP345/w5> g++ -o w5 -std=c++0x w5.cpp Notifications.cpp Message.cpp
+rlemedemoraes@matrix:~/OOP345/w5> w5 w5_test.dat
+
+Notifications
+=============
+
+Message
+ User  : jim
+ Tweet : Workshop
+
+Message
+ User  : harry
+ Reply : @jim
+ Tweet :  working on workshop 5 now
+
+Message
+ User  : dave
+ Tweet : xzczxvc
+
+Message
+ User  : john
+ Reply : @harry
+ Tweet :  I'm finished
+
+Press any key to continue ... 
+rlemedemoraes@matrix:~/OOP345/w5> exit
+exit
+
+Script done on Wed 21 Oct 2015 01:27:46 AM EDT
