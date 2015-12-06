@@ -5,6 +5,8 @@
 
 #include "Utilities.h"
 
+char Utilities::delimiter = '\0';
+
 Utilities::Utilities(size_t minimum_field_width /*= 1u*/) {
   field_width = minimum_field_width;
 }

@@ -6,6 +6,9 @@
 #include "Task.h"
 #include "Utilities.h"
 
+char Task::delimiter = '\0';
+size_t Task::field_width = 0;
+
 Task::Task(const std::string& record) {
   slots = "1";
   pNextTask[passed] = nullptr;
