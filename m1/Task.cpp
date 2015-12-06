@@ -3,6 +3,7 @@
 // Rafael Leme de Moraes
 // v1.0 07/12/2015
 
+#include <iomanip>
 #include "Task.h"
 #include "Utilities.h"
 
@@ -50,7 +51,23 @@ const Task* Task::getNextTask(Quality quality) const {
 }
 
 void Task::display(std::ostream& os) const {
-  os << name << std::endl; // TODO
+  os << "Task Name    : " << std::left << std::setw(field_width + 3) <<
+        "[" + name + "]" <<
+        "[" << slots << "]" << std::endl;
+
+  if(!nextTask[passed].empty()) {
+    os << " Continue to : " << std::left << std::setw(field_width + 2) <<
+       "[" + nextTask[passed] + "]";
+    if(!pNextTask[passed]) os << " *** to be validated ***";
+    os << std::endl;
+  }
+
+  if(!nextTask[redirect].empty()) {
+    os << " Redirect to : " << std::left << std::setw(field_width + 2) <<
+       "[" + nextTask[redirect] + "]";
+    if(!pNextTask[redirect]) os << " *** to be validated ***";
+    os << std::endl;
+  }
 }
 
 void Task::setDelimiter(const char c) {
