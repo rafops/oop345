@@ -22,14 +22,18 @@ size_t Utilities::getFieldWidth() const {
 const std::string Utilities::nextToken(const std::string& str, size_t& next_pos, bool& more) {
   std::string token = str.substr(next_pos);
 
-  token = token.find(delimiter)==std::string::npos ?
-    token.substr(0, token.size() - 1) :
-    token.substr(0, token.find(delimiter));
+  size_t delimiter_pos = token.find(delimiter);
+  token = delimiter_pos == std::string::npos ?
+    token.substr(0, token.find_first_of("\r\n")) : // until end of line
+    token.substr(0, delimiter_pos);                // until next delimiter
 
   if(field_width < token.size()) field_width = token.size();
 
   next_pos += token.size() + 1;
   more = (next_pos < str.size());
+
+  /* remove white space */
+  token.erase(std::remove(token.begin(), token.end(), ' '), token.end());
 
   return token;
 }
