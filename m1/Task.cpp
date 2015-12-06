@@ -43,7 +43,10 @@ bool Task::validate(const Task& task) {
 }
 
 const Task* Task::getNextTask(Quality quality) const {
-  return nullptr; // TODO
+  if(pNextTask[quality]==nullptr) {
+    throw "*** Validate  [" + nextTask[quality] + "] @ [" + name + "] ***";
+  }
+  return pNextTask[quality];
 }
 
 void Task::display(std::ostream& os) const {
@@ -59,5 +62,5 @@ size_t Task::getFieldWidth() {
 }
 
 bool operator==(const Task& task1, const Task& task2) {
-  return false; // TODO
+  return task1.getName().compare(task2.getName())==0;
 }
