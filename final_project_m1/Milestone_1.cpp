@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
   while (taskFile) {
     std::string record;
     std::getline(taskFile, record);
-    if (taskFile) {
+    if (taskFile) { // why we need this besides while(taskFile) ?
       try {
         std::unique_ptr<Task> task(new Task(record));
         if (!task->getName().empty())
