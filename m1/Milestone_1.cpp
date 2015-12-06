@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
   // Acquire the Tasks
   //
   std::cout << "Acquiring the Set of Tasks\n--------------------------\n";
-  Task::setDelimiter(Utilities::getDelimiter());
+  Task::setDelimiter(Utilities::getDelimiter()); // again?
   std::vector<Task> tasks;
   while (taskFile) {
     std::string record;
