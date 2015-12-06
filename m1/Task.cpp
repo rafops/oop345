@@ -14,9 +14,9 @@ Task::Task(const std::string& record) {
   pNextTask[passed] = nullptr;
   pNextTask[redirect] = nullptr;
 
-  Utilities u(field_width);
   size_t next_pos = 0;
   bool more = true;
+  Utilities u(field_width);
 
            name               = u.nextToken(record, next_pos, more);
   if(more) slots              = u.nextToken(record, next_pos, more);

@@ -26,7 +26,9 @@ const std::string Utilities::nextToken(const std::string& str, size_t& next_pos,
     token.substr(0, token.size() - 1) :
     token.substr(0, token.find(delimiter));
 
-  next_pos += token.size() + 1;  
+  if(field_width < token.size()) field_width = token.size();
+
+  next_pos += token.size() + 1;
   more = (next_pos < str.size());
 
   return token;
