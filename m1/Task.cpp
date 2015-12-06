@@ -35,7 +35,11 @@ unsigned int Task::getSlots() const {
 }
 
 bool Task::validate(const Task& task) {
-  return true; // TODO
+  bool valid = true;
+  if(task.name.compare(nextTask[passed])==0) pNextTask[passed] = &task;
+  else if(task.name.compare(nextTask[passed])==0) pNextTask[redirect] = &task;
+  else valid = false;
+  return valid;
 }
 
 const Task* Task::getNextTask(Quality quality) const {
@@ -54,6 +58,6 @@ size_t Task::getFieldWidth() {
   return Task::field_width;
 }
 
-bool operator==(const Task& t1, const Task& t2) {
+bool operator==(const Task& task1, const Task& task2) {
   return false; // TODO
 }
