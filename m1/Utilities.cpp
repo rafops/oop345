@@ -5,7 +5,7 @@
 
 #include "Utilities.h"
 
-char Utilities::delimiter = '\0';
+char Utilities::delimiter = '|';
 
 Utilities::Utilities(size_t minimum_field_width /*= 1u*/) {
   field_width = minimum_field_width;
@@ -23,7 +23,10 @@ const std::string Utilities::nextToken(const std::string& str, size_t& next_pos,
   std::string token;
 
   while(true) {
-    if(str[next_pos] == delimiter) break;
+    if(str[next_pos] == delimiter) {
+      next_pos++;
+      break;
+    }
     if(str.size() <= next_pos) {
       more = false;
       break;
