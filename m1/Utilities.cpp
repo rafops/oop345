@@ -20,21 +20,14 @@ size_t Utilities::getFieldWidth() const {
 }
 
 const std::string Utilities::nextToken(const std::string& str, size_t& next_pos, bool& more) {
-  std::string token;
+  std::string token = str.substr(next_pos);
 
-  while(true) {
-    if(str[next_pos] == delimiter) {
-      next_pos++;
-      break;
-    }
-    if(str.size() <= next_pos) {
-      more = false;
-      break;
-    }
-    token += str[next_pos++];
-  }
+  token = token.find(delimiter)==std::string::npos ?
+    token.substr(0, token.size() - 1) :
+    token.substr(0, token.find(delimiter));
 
-  if(token.size() > field_width) field_width = token.size();
+  next_pos += token.size() + 1;  
+  more = (next_pos < str.size());
 
   return token;
 }
