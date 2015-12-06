@@ -36,11 +36,11 @@ unsigned int Task::getSlots() const {
 }
 
 bool Task::validate(const Task& task) {
-  bool valid = true;
   if(task.name.compare(nextTask[passed])==0) pNextTask[passed] = &task;
-  else if(task.name.compare(nextTask[passed])==0) pNextTask[redirect] = &task;
-  else valid = false;
-  return valid;
+  else if(task.name.compare(nextTask[redirect])==0) pNextTask[redirect] = &task;
+  
+  return (nextTask[passed].empty() || pNextTask[passed]) && 
+         (nextTask[redirect].empty() || pNextTask[redirect]);
 }
 
 const Task* Task::getNextTask(Quality quality) const {
@@ -58,14 +58,14 @@ void Task::display(std::ostream& os) const {
   if(!nextTask[passed].empty()) {
     os << " Continue to : " << std::left << std::setw(field_width + 2) <<
        "[" + nextTask[passed] + "]";
-    if(!pNextTask[passed]) os << " *** to be validated ***";
+    if(pNextTask[passed]==nullptr) os << " *** to be validated ***";
     os << std::endl;
   }
 
   if(!nextTask[redirect].empty()) {
     os << " Redirect to : " << std::left << std::setw(field_width + 2) <<
        "[" + nextTask[redirect] + "]";
-    if(!pNextTask[redirect]) os << " *** to be validated ***";
+    if(pNextTask[redirect]==nullptr) os << " *** to be validated ***";
     os << std::endl;
   }
 }
