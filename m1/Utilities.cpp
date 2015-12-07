@@ -3,6 +3,10 @@
 // Rafael Leme de Moraes
 // v1.0 07/12/2015
 
+#include <algorithm> 
+#include <functional> 
+#include <cctype>
+#include <locale>
 #include "Utilities.h"
 
 char Utilities::delimiter = '|';
@@ -19,6 +23,23 @@ size_t Utilities::getFieldWidth() const {
   return field_width;
 }
 
+// // trim from start
+// static inline std::string &ltrim(std::string &s) {
+//   s.erase(s.begin(), std::find_if(s.begin(), s.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
+//   return s;
+// }
+// 
+// // trim from end
+// static inline std::string &rtrim(std::string &s) {
+//   s.erase(std::find_if(s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
+//   return s;
+// }
+// 
+// // trim from both ends
+// static inline std::string &trim(std::string &s) {
+//   return ltrim(rtrim(s));
+// }
+
 const std::string Utilities::nextToken(const std::string& str, size_t& next_pos, bool& more) {
   std::string token = str.substr(next_pos);
 
@@ -33,7 +54,7 @@ const std::string Utilities::nextToken(const std::string& str, size_t& next_pos,
   more = (next_pos < str.size());
 
   /* remove white space */
-  token.erase(std::remove(token.begin(), token.end(), ' '), token.end());
+  // return trim(token);
 
   return token;
 }
