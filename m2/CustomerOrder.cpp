@@ -8,6 +8,7 @@
 #include "CustomerOrder.h"
 #include "ItemOrder.h"
 #include "Utilities.h"
+#include "Item.h"
 
 char CustomerOrder::delimiter = '|';
 size_t CustomerOrder::field_width = 0;
@@ -86,17 +87,17 @@ const std::string& CustomerOrder::operator[](unsigned int i) const {
 void CustomerOrder::fill(Item& item) {
   for(unsigned int i=0; i<nOrders; i++) {
     // TODO
-    // if(order[i].getName().compare(item.getName())==0) {
-    //   order[i].fill(item.getCode());
-    //   item++;
-    // }
+    if(order[i].getName().compare(item.getName())==0) {
+      order[i].fill(item.getCode());
+      item++;
+    }
   }
 }
 
 void CustomerOrder::remove(Item& item) {
   for(unsigned int i=0; i<nOrders; i++) {
     // TODO
-    // if(order[i].getName().compare(item.getName())==0) order[i].clear();
+    if(order[i].getName().compare(item.getName())==0) order[i].clear();
   }
 }
 
