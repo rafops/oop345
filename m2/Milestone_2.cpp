@@ -53,7 +53,8 @@ int main(int argc, char** argv) {
       try {
         std::unique_ptr<CustomerOrder> customerOrder(new CustomerOrder(record));
         if (!customerOrder->empty())
-          customerOrders.push_back(std::move(*customerOrder));
+          auto x = std::move(*customerOrder);
+          // customerOrders.push_back(std::move(*customerOrder));
       }
       catch (const std::string& msg) {
         std::cerr << msg << std::endl;
@@ -61,54 +62,54 @@ int main(int argc, char** argv) {
     }
   }
 
-  // Display the Accepted Customer Orders
-  //
-  std::cout << "\nList of Accepted Customer Orders\n--------------------------------\n";
-  for (auto& s : customerOrders)
-    s.display(std::cout);
-
-  // Retrieve the available Items
-  //
-  std::cout << "\n*** Retrieve the Available Items ***\n";
-  Item::setDelimiter(Utilities::getDelimiter());
-  std::vector<Item> items;
-  while (itemFile) {
-    std::string record;
-    std::getline(itemFile, record);
-    if (itemFile) {
-      try {
-        std::unique_ptr<Item> item(new Item(record));
-        if (!item->empty())
-          items.push_back(std::move(*item));
-      }
-      catch (const std::string& msg) {
-        std::cerr << msg << std::endl;
-      }
-    }
-  }
-
-  // List the available Items
-  //
-  std::cout << "\nList of Available Items\n-----------------------\n";
-  for (auto& i : items)
-    i.display(std::cout, true);
-
-  // Fill the Customer Orders with the Available Items
-  //
-  std::cout << "\n*** Process the Customer Orders ***\n";
-  for (auto& i : items)
-    for (auto& s : customerOrders)
-      s.fill(i);
-
-  // Display the Processed Customer Orders
-  //
-  std::cout << "\nList of Processed Customer Orders\n---------------------------------\n";
-  for (auto& s : customerOrders)
-    s.display(std::cout);
-
-  // Terminate
-  //
-  std::cout << "\nDone!\nPress Enter Key to Exit ... ";
-  char c;
-  std::cin.get(c);
+  // // Display the Accepted Customer Orders
+  // //
+  // std::cout << "\nList of Accepted Customer Orders\n--------------------------------\n";
+  // for (auto& s : customerOrders)
+  //   s.display(std::cout);
+  // 
+  // // Retrieve the available Items
+  // //
+  // std::cout << "\n*** Retrieve the Available Items ***\n";
+  // Item::setDelimiter(Utilities::getDelimiter());
+  // std::vector<Item> items;
+  // while (itemFile) {
+  //   std::string record;
+  //   std::getline(itemFile, record);
+  //   if (itemFile) {
+  //     try {
+  //       std::unique_ptr<Item> item(new Item(record));
+  //       if (!item->empty())
+  //         items.push_back(std::move(*item));
+  //     }
+  //     catch (const std::string& msg) {
+  //       std::cerr << msg << std::endl;
+  //     }
+  //   }
+  // }
+  // 
+  // // List the available Items
+  // //
+  // std::cout << "\nList of Available Items\n-----------------------\n";
+  // for (auto& i : items)
+  //   i.display(std::cout, true);
+  // 
+  // // Fill the Customer Orders with the Available Items
+  // //
+  // std::cout << "\n*** Process the Customer Orders ***\n";
+  // for (auto& i : items)
+  //   for (auto& s : customerOrders)
+  //     s.fill(i);
+  // 
+  // // Display the Processed Customer Orders
+  // //
+  // std::cout << "\nList of Processed Customer Orders\n---------------------------------\n";
+  // for (auto& s : customerOrders)
+  //   s.display(std::cout);
+  // 
+  // // Terminate
+  // //
+  // std::cout << "\nDone!\nPress Enter Key to Exit ... ";
+  // char c;
+  // std::cin.get(c);
 }

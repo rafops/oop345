@@ -45,7 +45,6 @@ CustomerOrder::CustomerOrder(const CustomerOrder& customerOrder) {
 }
 
 CustomerOrder::CustomerOrder(CustomerOrder&& customerOrder) {
-  if(order) delete[] order;
   order = nullptr;
   *this = std::move(customerOrder);
 }
@@ -57,13 +56,16 @@ CustomerOrder&& CustomerOrder::operator=(CustomerOrder&& customerOrder) {
       order = nullptr;
       nOrders = 0;
     }
+
     name = customerOrder.name;
     product = customerOrder.product;
-    while(nOrders < customerOrder.nOrders) {
-      order[nOrders] = customerOrder[nOrders];
-      nOrders++;
-    }
+    nOrders = customerOrder.nOrders;
+    order = customerOrder.order;
+
+    customerOrder.nOrders = 0;
+    customerOrder.order = nullptr;
   }
+
   return std::move(*this);
 }
 
