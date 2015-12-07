@@ -3,28 +3,32 @@
 // Rafael Leme de Moraes
 // v1.0 07/12/2015
 
+#include <iomanip>
 #include "ItemOrder.h"
+#include "Utilities.h"
 
-ItemOrder::ItemOrder(const std::string& record /*= std::string()*/) {
+ItemOrder::ItemOrder(const std::string& s /*= std::string()*/) {
   filled = false;
   code = 0;
-  // TODO
+  name = s;
 }
 
 bool ItemOrder::asksFor(const Item& item) const {
-  return false; // TODO
+  return true; // TODO
 }
 
 bool ItemOrder::isFilled() const {
-  return false; // TODO
+  return filled;
 }
 
 void ItemOrder::fill(const unsigned int c) {
-  // TODO
+  code = c;
+  filled = true;
 }
 
 void ItemOrder::clear() {
-  // TODO
+  code = 0;
+  filled = false;
 }
 
 const std::string& ItemOrder::getName() const {
@@ -32,5 +36,7 @@ const std::string& ItemOrder::getName() const {
 }
 
 void ItemOrder::display(std::ostream& os) const {
-  // TODO
+  os << " " << (filled ? '+' : '-') << " " << 
+     "[" << std::setfill('0') << std::setw(CODE_WIDTH) << code << "] " <<
+     name << std::endl;
 }
