@@ -54,8 +54,12 @@ const std::string Utilities::nextToken(const std::string& str, size_t& next_pos,
   more = (next_pos < str.size());
 
   /* remove white space */
-  // return trim(token);
+  // size_t space_found;
+  // while((space_found = token.find(' ')) != std::string::npos) {
+  //   token.erase(space_found);
+  // }
 
+  // return trim(token);
   return token;
 }
 
