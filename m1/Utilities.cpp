@@ -33,7 +33,10 @@ const std::string Utilities::nextToken(const std::string& str, size_t& next_pos,
   more = (next_pos < str.size());
 
   /* remove white space */
-  token.erase(std::remove(token.begin(), token.end(), ' '), token.end());
+  size_t space_found;
+  while((space_found = token.find(' ')) != std::string::npos) {
+    token.erase(space_found);
+  }
 
   return token;
 }
