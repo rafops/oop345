@@ -20,7 +20,7 @@ public:
   CustomerOrder(const std::string&);
   CustomerOrder(const CustomerOrder&);
   CustomerOrder& operator=(const CustomerOrder&) = delete; 
-  CustomerOrder(CustomerOrder&&);
+  CustomerOrder(CustomerOrder&&) noexcept;
   CustomerOrder&& operator=(CustomerOrder&&);
   ~CustomerOrder();
   // returns the number of item orders in the current object

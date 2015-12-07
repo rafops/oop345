@@ -53,8 +53,7 @@ int main(int argc, char** argv) {
       try {
         std::unique_ptr<CustomerOrder> customerOrder(new CustomerOrder(record));
         if (!customerOrder->empty())
-          auto x = std::move(*customerOrder);
-          // customerOrders.push_back(std::move(*customerOrder));
+          customerOrders.push_back(std::move(*customerOrder));
       }
       catch (const std::string& msg) {
         std::cerr << msg << std::endl;

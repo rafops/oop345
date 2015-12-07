@@ -44,7 +44,7 @@ CustomerOrder::CustomerOrder(const CustomerOrder& customerOrder) {
   throw std::string("duplication of customer orders are not allowed!");
 }
 
-CustomerOrder::CustomerOrder(CustomerOrder&& customerOrder) {
+CustomerOrder::CustomerOrder(CustomerOrder&& customerOrder) noexcept {
   order = nullptr;
   *this = std::move(customerOrder);
 }
