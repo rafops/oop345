@@ -53,7 +53,16 @@ const std::string& Item::getDestination() const {
 }
 
 void Item::display(std::ostream& os, bool full /*= false*/) const {
-  // TODO
+  /*CPU3456789012[00300] From CPU8901234567To Remove CPU
+    0123456789012345678: Central Processing Unit*/
+  os << std::left << std::setw(field_width) << name << "[" <<
+        std::right << std::setfill('0') << std::setw(CODE_WIDTH) << code << "]";
+  if(full) {
+    os << " From " << std::left << std::setw(field_width) << source <<
+          " To " << std::left << std::setw(field_width) << destination <<
+          std::setw(field_width + CODE_WIDTH + 2) << std::right << " : " <<
+          details;
+  }
   os << std::endl;
 }
 
