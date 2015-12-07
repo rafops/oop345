@@ -29,12 +29,12 @@ int main(int argc, char** argv) {
   // Acquire the Tasks
   //
   std::cout << "Acquiring the Set of Tasks\n--------------------------\n";
-  Task::setDelimiter(Utilities::getDelimiter()); // again?
+  Task::setDelimiter(Utilities::getDelimiter());
   std::vector<Task> tasks;
   while (taskFile) {
     std::string record;
     std::getline(taskFile, record);
-    if (taskFile) { // why we need this besides while(taskFile) ?
+    if (taskFile) {
       try {
         std::unique_ptr<Task> task(new Task(record));
         if (!task->getName().empty())
