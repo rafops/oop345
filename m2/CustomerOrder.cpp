@@ -41,7 +41,7 @@ CustomerOrder::CustomerOrder(const std::string& record) {
 // Since customer orders are not to be duplicated, 
 // the copy constructor should never be called.
 CustomerOrder::CustomerOrder(const CustomerOrder& customerOrder) {
-  throw "duplication of customer orders are not allowed!";
+  throw std::string("duplication of customer orders are not allowed!");
 }
 
 CustomerOrder::CustomerOrder(CustomerOrder&& customerOrder) {
@@ -80,7 +80,7 @@ unsigned int CustomerOrder::noOrders() const {
 }
 
 const std::string& CustomerOrder::operator[](unsigned int i) const {
-  if(nOrders <= i) throw "index is out of bounds";
+  if(nOrders <= i) throw std::string("index is out of bounds");
   return order[i].getName();
 }
 
