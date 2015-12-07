@@ -34,7 +34,7 @@ const std::string Utilities::nextToken(const std::string& str, size_t& next_pos,
 
   size_t token_pos;
   /* remove trailing spaces */
-  while((token_pos = token.size()-1) > 0) {
+  while((token_pos = token.size()-1) != std::string::npos) {
     if(isspace(token.at(token_pos))) token.erase(token_pos);
     else break;
   }
