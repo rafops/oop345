@@ -61,11 +61,11 @@ int main(int argc, char** argv) {
     }
   }
 
-  // // Display the Accepted Customer Orders
-  // //
-  // std::cout << "\nList of Accepted Customer Orders\n--------------------------------\n";
-  // for (auto& s : customerOrders)
-  //   s.display(std::cout);
+  // Display the Accepted Customer Orders
+  //
+  std::cout << "\nList of Accepted Customer Orders\n--------------------------------\n";
+  for (auto& s : customerOrders)
+    s.display(std::cout);
   // 
   // // Retrieve the available Items
   // //

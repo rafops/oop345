@@ -44,7 +44,7 @@ CustomerOrder::CustomerOrder(const CustomerOrder& customerOrder) {
   throw std::string("duplication of customer orders are not allowed!");
 }
 
-CustomerOrder::CustomerOrder(CustomerOrder&& customerOrder) noexcept {
+CustomerOrder::CustomerOrder(CustomerOrder&& customerOrder) noexcept { // OSX noexcept
   order = nullptr;
   *this = std::move(customerOrder);
 }
@@ -106,8 +106,10 @@ bool CustomerOrder::empty() const {
 }
 
 void CustomerOrder::display(std::ostream& os) const {
-  os << std::setw(field_width) << name << " : " <<
-        std::setw(field_width) << product << std::endl;
+  os << std::left << std::setfill(' ') << std::setw(field_width) << name <<
+        " : " <<
+        std::left << std::setfill(' ') << std::setw(field_width) << product <<
+        std::endl;
   for(unsigned int i=0; i<nOrders; i++) {
     order[i].display(os);
   }
