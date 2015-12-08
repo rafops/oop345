@@ -4,6 +4,7 @@
 // v1.0 07/12/2015
 
 #include "Task.h"
+#include "Item.h"
 #include "ItemManager.h" 
 #include "TaskManager.h"
 #include <algorithm>
@@ -45,18 +46,14 @@ void TaskManager::validate(std::ostream& os) {
   if(!valid) std::cerr << "*** Not all Tasks have been validated ***" << std::endl;
 }
 
-void TaskManager::display(std::ostream& os) const {
-  for(auto& i: tasks) i.display(os);
-}
-
 void validate(const TaskManager& taskManager, const ItemManager& itemManager, std::ostream& os) {
   for(auto i=itemManager.cbegin(); i!=itemManager.cend(); ++i) {
     const auto& item = *i;
-    auto hasTask = [&](const task& task) {
+    auto hasTask = [&](const Task& task) {
       return task.getName()==item.getDestination();
     };
     if(std::find_if(taskManager.cbegin(), taskManager.cend(), hasTask)==taskManager.cend()) {
-      os << task[j] << " is unavailable" << std::endl;
+      os << item.getDestination() << " is unavailable" << std::endl;
     }
   }
 }

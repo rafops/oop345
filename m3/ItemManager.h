@@ -6,6 +6,8 @@
 #include <iostream>
 #include <vector>
 
+class Item;
+
 class ItemManager {
   std::vector<Item> items;
 public:

@@ -18,7 +18,7 @@ CustomerOrder&& OrderManager::extract() {
 }
 
 void OrderManager::pop() {
-  customerOrders.pop();
+  customerOrders.back();
 }
 
 bool OrderManager::empty() const {
