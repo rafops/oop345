@@ -66,32 +66,32 @@ int main(int argc, char** argv) {
   std::cout << "\nList of Accepted Customer Orders\n--------------------------------\n";
   for (auto& s : customerOrders)
     s.display(std::cout);
-  // 
-  // // Retrieve the available Items
-  // //
-  // std::cout << "\n*** Retrieve the Available Items ***\n";
-  // Item::setDelimiter(Utilities::getDelimiter());
-  // std::vector<Item> items;
-  // while (itemFile) {
-  //   std::string record;
-  //   std::getline(itemFile, record);
-  //   if (itemFile) {
-  //     try {
-  //       std::unique_ptr<Item> item(new Item(record));
-  //       if (!item->empty())
-  //         items.push_back(std::move(*item));
-  //     }
-  //     catch (const std::string& msg) {
-  //       std::cerr << msg << std::endl;
-  //     }
-  //   }
-  // }
-  // 
-  // // List the available Items
-  // //
-  // std::cout << "\nList of Available Items\n-----------------------\n";
-  // for (auto& i : items)
-  //   i.display(std::cout, true);
+   
+   // Retrieve the available Items
+   //
+   std::cout << "\n*** Retrieve the Available Items ***\n";
+   Item::setDelimiter(Utilities::getDelimiter());
+   std::vector<Item> items;
+   while (itemFile) {
+     std::string record;
+     std::getline(itemFile, record);
+     if (itemFile) {
+       try {
+         std::unique_ptr<Item> item(new Item(record));
+         if (!item->empty())
+           items.push_back(std::move(*item));
+       }
+       catch (const std::string& msg) {
+         std::cerr << msg << std::endl;
+       }
+     }
+   }
+   
+   // List the available Items
+   //
+   std::cout << "\nList of Available Items\n-----------------------\n";
+   for (auto& i : items)
+     i.display(std::cout, true);
   // 
   // // Fill the Customer Orders with the Available Items
   // //
