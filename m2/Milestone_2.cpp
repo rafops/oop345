@@ -92,23 +92,23 @@ int main(int argc, char** argv) {
    std::cout << "\nList of Available Items\n-----------------------\n";
    for (auto& i : items)
      i.display(std::cout, true);
-  // 
-  // // Fill the Customer Orders with the Available Items
-  // //
-  // std::cout << "\n*** Process the Customer Orders ***\n";
-  // for (auto& i : items)
-  //   for (auto& s : customerOrders)
-  //     s.fill(i);
-  // 
-  // // Display the Processed Customer Orders
-  // //
-  // std::cout << "\nList of Processed Customer Orders\n---------------------------------\n";
-  // for (auto& s : customerOrders)
-  //   s.display(std::cout);
-  // 
-  // // Terminate
-  // //
-  // std::cout << "\nDone!\nPress Enter Key to Exit ... ";
-  // char c;
-  // std::cin.get(c);
+   
+   // Fill the Customer Orders with the Available Items
+   //
+   std::cout << "\n*** Process the Customer Orders ***\n";
+   for (auto& i : items)
+     for (auto& s : customerOrders)
+       s.fill(i);
+   
+   // Display the Processed Customer Orders
+   //
+   std::cout << "\nList of Processed Customer Orders\n---------------------------------\n";
+   for (auto& s : customerOrders)
+     s.display(std::cout);
+   
+   // Terminate
+   //
+   std::cout << "\nDone!\nPress Enter Key to Exit ... ";
+   char c;
+   std::cin.get(c);
 }
