@@ -4,9 +4,9 @@
 // v1.0 07/12/2015
 
 #include <algorithm>
-#include "CustomerOrder.h";
-#include "Item.h";
-#include "ItemManager.h";
+#include "CustomerOrder.h"
+#include "Item.h"
+#include "ItemManager.h"
 #include "OrderManager.h"
 
 void OrderManager::push_back(CustomerOrder&& customerOrder) {
@@ -14,7 +14,7 @@ void OrderManager::push_back(CustomerOrder&& customerOrder) {
 }
 
 CustomerOrder&& OrderManager::extract() {
-  std::move(customerOrders.pop_back());
+  return std::move(customerOrders.back());
 }
 
 void OrderManager::pop() {
