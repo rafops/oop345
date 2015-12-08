@@ -5,6 +5,8 @@
 
 #include "Utilities.h"
 
+#include <iostream>
+
 char Utilities::delimiter = '|';
 
 Utilities::Utilities(size_t minimum_field_width /*= 1u*/) {
@@ -27,6 +29,8 @@ const std::string Utilities::nextToken(const std::string& str, size_t& next_pos,
     token.substr(0, token.find_first_of("\r\n")) : // until end of line
     token.substr(0, delimiter_pos);                // until next delimiter
 
+  std::cout << "token = [" << token << "]" << std::endl;
+
   if(field_width < token.size()) field_width = token.size();
 
   next_pos += token.size() + 1;
@@ -38,11 +42,13 @@ const std::string Utilities::nextToken(const std::string& str, size_t& next_pos,
     if(isspace(token.at(token_pos))) token.erase(token_pos);
     else break;
   }
+  std::cout << "token = [" << token << "]" << std::endl;
   /* remove leading spaces */
   while(token.size() > 0) {
-    if(isspace(token.at(0))) token.erase(0);
+    if(isspace(token.at(0))) token.erase(0, 1);
     else break;
   }
+  std::cout << "token = [" << token << "]" << std::endl;
 
   return token;
 }
