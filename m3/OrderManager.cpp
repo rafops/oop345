@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include "CustomerOrder.h";
+#include "Item.h";
 #include "ItemManager.h";
 #include "OrderManager.h"
 
