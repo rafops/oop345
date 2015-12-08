@@ -36,8 +36,8 @@ unsigned int Task::getSlots() const {
 }
 
 bool Task::validate(const Task& task) {
-  if(task.name.compare(nextTask[passed])==0) pNextTask[passed] = &task;
-  else if(task.name.compare(nextTask[redirect])==0) pNextTask[redirect] = &task;
+  if(task.name==nextTask[passed]) pNextTask[passed] = &task;
+  else if(task.name==nextTask[redirect]) pNextTask[redirect] = &task;
   
   return (nextTask[passed].empty() || pNextTask[passed]) && 
          (nextTask[redirect].empty() || pNextTask[redirect]);
@@ -79,5 +79,5 @@ size_t Task::getFieldWidth() {
 }
 
 bool operator==(const Task& task1, const Task& task2) {
-  return task1.getName().compare(task2.getName())==0;
+  return task1.getName()==task2.getName();
 }
