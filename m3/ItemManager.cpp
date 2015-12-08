@@ -1,4 +1,4 @@
-// Milestone 1 - Managers - Item Manager Class
+// Milestone 3 - Managers - Item Manager Class
 // ItemManager.cpp
 // Rafael Leme de Moraes
 // v1.0 07/12/2015

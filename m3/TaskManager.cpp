@@ -1,4 +1,4 @@
-// Milestone 1 - Managers - Task Manager Class
+// Milestone 3 - Managers - Task Manager Class
 // TaskManager.cpp
 // Rafael Leme de Moraes
 // v1.0 07/12/2015
