@@ -5,6 +5,8 @@
 
 #include "Utilities.h"
 
+#include <iostream>
+
 char Utilities::delimiter = '|';
 
 Utilities::Utilities(size_t minimum_field_width /*= 1u*/) {
@@ -30,7 +32,7 @@ const std::string Utilities::nextToken(const std::string& str, size_t& next_pos,
   if(field_width < token.size()) field_width = token.size();
 
   next_pos += token.size() + 1;
-  more = (next_pos < str.size());
+  more = (next_pos < str.size() - 1);
 
   size_t token_pos;
   /* remove trailing spaces */
